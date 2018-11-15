@@ -10,7 +10,6 @@ pkg_search_module(CHROME  libbrillo-395517 libbrillo-glib-395517 libbrillo-test-
 
 
 add_executable(HelloWorld 
-                HelloWorld.cc
                 main.cc
                 HelloWorldDaemon.cc
                 dbus_service.cc
@@ -34,3 +33,27 @@ target_link_libraries(HelloWorld  PUBLIC
                         dbus-glib-1
                         expat
                         )                 
+
+add_executable(HelloWorldClient 
+                    HelloWorldClient_impl.cc
+                    HelloWorldClient.cc
+                    proto_bindings/hello_world.pb.cc
+                    fuck_static.cc
+                    )
+
+target_include_directories(HelloWorldClient PUBLIC ${CHROME_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../)
+        
+target_link_libraries(HelloWorldClient  PUBLIC
+                        brillo-core-395517
+                        base-core-395517
+                        base-dbus-395517 
+                        atomic 
+                        pthread 
+                        protobuf-lite
+                        protobuf
+                        rt 
+                        modp_b64 
+                        dbus-1
+                        dbus-glib-1
+                        expat
+                        )                                         
