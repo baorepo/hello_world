@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<node name="/org/chromium/HelloWorld">
+  <interface name="org.chromium.HelloWorldInterface">
+    <annotation name="org.freedesktop.DBus.GLib.CSymbol"
+                value="hello_world_service" />
+    <annotation name="org.freedesktop.DBus.GLib.ClientCSymbol"
+                value="hello_world_client" />
+    <method name="AttemptHello">
+      <arg type="s" name="app_version" direction="in" />
+      <arg type="s" name="omaha_url" direction="in" />
+    </method>
+    <!-- TODO(zeuthen,chromium:286399): Rename to AttemptHello and
+         hello Chrome and other users of the AttemptHello() method
+         in lockstep.
+    -->
+    <method name="AttemptHelloWithFlags">
+      <arg type="s" name="app_version" direction="in" />
+      <arg type="s" name="omaha_url" direction="in" />
+      <!-- See AttemptHelloFlags enum in hello-world/dbus-constants.h. -->
+      <arg type="i" name="flags" direction="in" />
+    </method>
+    <method name="AttemptInstall">
+      <arg type="s" name="dlc_request" direction="in" />
+    </method>
+    <method name="AttemptRollback">
+      <arg type="b" name="powerwash" direction="in" />
+    </method>
+    <method name="CanRollback">
+      <arg type="b" name="can_rollback" direction="out" />
+    </method>
+    <method name="ResetStatus">
+    </method>
+    <method name="GetStatus">
+      <arg type="x" name="last_checked_time" direction="out" />
+      <arg type="d" name="progress" direction="out" />
+      <arg type="s" name="current_operation" direction="out" />
+      <arg type="s" name="new_version" direction="out" />
+      <arg type="x" name="new_size" direction="out" />
+    </method>
+    <method name="RebootIfNeeded">
+    </method>
+    <method name="SetChannel">
+      <arg type="s" name="target_channel" direction="in" />
+      <arg type="b" name="is_powerwash_allowed" direction="in" />
+    </method>
+    <method name="GetChannel">
+      <arg type="b" name="get_current_channel" direction="in" />
+      <arg type="s" name="channel" direction="out" />
+    </method>
+    <method name="SetCohortHint">
+      <arg type="s" name="cohort_hint" direction="in" />
+    </method>
+    <method name="GetCohortHint">
+      <arg type="s" name="cohort_hint" direction="out" />
+    </method>
+    <method name="SetP2PHelloPermission">
+      <annotation name="org.freedesktop.DBus.GLib.CSymbol"
+        value="hello_world_service_set_p2p_hello_permission" />
+      <annotation name="org.freedesktop.DBus.GLib.ClientCSymbol"
+        value="hellor_world_client_set_p2p_hello_permission" />
+      <arg type="b" name="enabled" direction="in" />
+    </method>
+    <method name="GetP2PHelloPermission">
+      <annotation name="org.freedesktop.DBus.GLib.CSymbol"
+        value="hello_world_service_get_p2p_hello_permission" />
+      <annotation name="org.freedesktop.DBus.GLib.ClientCSymbol"
+        value="hello_world_client_get_p2p_hello_permission" />
+      <arg type="b" name="enabled" direction="out" />
+    </method>
+    <method name="SetHelloOverCellularPermission">
+      <arg type="b" name="allowed" direction="in" />
+    </method>
+    <method name="SetHelloOverCellularTarget">
+      <arg type="s" name="target_version" direction="in" />
+      <arg type="x" name="target_size" direction="in" />
+    </method>
+    <method name="GetHelloOverCellularPermission">
+      <arg type="b" name="allowed" direction="out" />
+    </method>
+    <method name="GetDurationSinceHello">
+      <arg type="x" name="usec_wallclock" direction="out" />
+    </method>
+    <signal name="StatusHello">
+      <arg type="x" name="last_checked_time" />
+      <arg type="d" name="progress" />
+      <arg type="s" name="current_operation" />
+      <arg type="s" name="new_version" />
+      <arg type="x" name="new_size" />
+    </signal>
+    <method name="GetPrevVersion">
+      <arg type="s" name="prev_version" direction="out" />
+    </method>
+    <method name="GetRollbackPartition">
+      <arg type="s" name="rollback_partition_name" direction="out" />
+    </method>
+    <method name="GetLastAttemptError">
+      <arg type="i" name="last_attempt_error" direction="out" />
+    </method>
+    <method name="GetEolStatus">
+      <arg type="i" name="eol_status" direction="out" />
+    </method>
+  </interface>
+</node>
