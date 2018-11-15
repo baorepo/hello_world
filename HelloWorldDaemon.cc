@@ -8,7 +8,7 @@ int HelloWorldDaemon::OnInit(){
   dbus_adaptor_->RegisterAsync(base::Bind(&HelloWorldDaemon::OnDBusRegistered,
                                           base::Unretained(this)));
   LOG(INFO) << "Waiting for DBus object to be registered.";
-  return true;
+  return EX_OK;
 }
 
 void HelloWorldDaemon::OnDBusRegistered(bool succeeded){
@@ -23,7 +23,7 @@ void HelloWorldDaemon::OnDBusRegistered(bool succeeded){
   // path that doesn't have the service it is supposed to implement.
   if (!dbus_adaptor_->RequestOwnership()) {
     LOG(ERROR) << "Unable to take ownership of the DBus service, is there "
-               << "other update_engine daemon running?";
+               << "other hello_world daemon running?";
     QuitWithExitCode(1);
     return ;
   }

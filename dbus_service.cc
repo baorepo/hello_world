@@ -39,7 +39,7 @@ DBusHelloWorldService::DBusHelloWorldService(){
 bool DBusHelloWorldService::AttemptHello(ErrorPtr* error,
                                             const string& in_app_version,
                                             const string& in_omaha_url) {
-    return true;
+    return EX_OK;
 }
 
 bool DBusHelloWorldService::AttemptHelloWithFlags(
@@ -47,26 +47,26 @@ bool DBusHelloWorldService::AttemptHelloWithFlags(
         const string& in_app_version,
         const string& in_omaha_url,
         int32_t in_flags_as_int) {
-    return true;
+    return EX_OK;
 }
 
 bool DBusHelloWorldService::AttemptInstall(ErrorPtr* error,
                                              const string& dlc_request) {
-    return true;
+    return EX_OK;
 }
 
 bool DBusHelloWorldService::AttemptRollback(ErrorPtr* error,
                                               bool in_powerwash) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::CanRollback(ErrorPtr* error,
                                           bool* out_can_rollback) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::ResetStatus(ErrorPtr* error) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::GetStatus(ErrorPtr* error,
@@ -75,85 +75,85 @@ bool DBusHelloWorldService::GetStatus(ErrorPtr* error,
                                         string* out_current_operation,
                                         string* out_new_version,
                                         int64_t* out_new_size) {
-    return true;
+    return EX_OK;
 }
 
 bool DBusHelloWorldService::RebootIfNeeded(ErrorPtr* error) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::SetChannel(ErrorPtr* error,
                                          const string& in_target_channel,
                                          bool in_is_powerwash_allowed) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::GetChannel(ErrorPtr* error,
                                          bool in_get_current_channel,
                                          string* out_channel) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::GetCohortHint(ErrorPtr* error,
                                             string* out_cohort_hint) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::SetCohortHint(ErrorPtr* error,
                                             const string& in_cohort_hint) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::SetP2PHelloPermission(ErrorPtr* error,
                                                      bool in_enabled) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::GetP2PHelloPermission(ErrorPtr* error,
                                                      bool* out_enabled) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::SetHelloOverCellularPermission(ErrorPtr* error,
                                                               bool in_allowed) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::SetHelloOverCellularTarget(
     brillo::ErrorPtr* error,
     const std::string& target_version,
     int64_t target_size) {
-    return true;
+    return EX_OK;
 }
 
 bool DBusHelloWorldService::GetHelloOverCellularPermission(
     ErrorPtr* error, bool* out_allowed) {
-    return true;
+    return EX_OK;
 }
 
 bool DBusHelloWorldService::GetDurationSinceHello(
     ErrorPtr* error, int64_t* out_usec_wallclock) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::GetPrevVersion(ErrorPtr* error,
                                              string* out_prev_version) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::GetRollbackPartition(
     ErrorPtr* error, string* out_rollback_partition_name) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::GetLastAttemptError(
     ErrorPtr* error, int32_t* out_last_attempt_error) {
-  return true;
+  return EX_OK;
 }
 
 bool DBusHelloWorldService::GetEolStatus(ErrorPtr* error,
                                            int32_t* out_eol_status) {
-  return true;
+  return EX_OK;
 }
 
 HelloWorldAdaptor::HelloWorldAdaptor()

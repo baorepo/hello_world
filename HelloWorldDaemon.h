@@ -2,6 +2,7 @@
 #define HELLOWORLD_DAEMON_H_
 #include <memory>
 #include <string>
+
 #include <brillo/daemons/daemon.h>
 #include "dbus_service.h"
 namespace chromeos_hello_world{

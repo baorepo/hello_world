@@ -21,6 +21,8 @@
 
 #include <memory>
 #include <string>
+#include <sysexits.h>
+
 
 #include <base/memory/ref_counted.h>
 #include <brillo/errors/error.h>
