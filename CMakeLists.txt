@@ -38,7 +38,6 @@ add_executable(HelloWorldClient
                     HelloWorldClient_impl.cc
                     HelloWorldClient.cc
                     proto_bindings/hello_world.pb.cc
-                    fuck_static.cc
                     )
 
 target_include_directories(HelloWorldClient PUBLIC ${CHROME_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../)

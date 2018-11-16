@@ -41,6 +41,21 @@ using std::vector;
 using hello_world::HelloStatus;
 using hello_world::HelloWorldClient;
 
+namespace hello_world {
+
+unique_ptr<HelloWorldClient> HelloWorldClient::CreateInstance() {
+
+  auto hello_world_client_impl = new internal::DBusHelloWorldClient{};
+  auto ret = unique_ptr<HelloWorldClient>{hello_world_client_impl};
+
+  if (!hello_world_client_impl->Init()) {
+      ret.reset();
+  }
+
+  return ret;
+}
+}
+
 namespace  {
 
 // Constant to signal that we need to continue running the daemon after
