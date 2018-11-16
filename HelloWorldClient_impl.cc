@@ -243,7 +243,7 @@ void DBusHelloWorldClient::StatusHelloHandlersRegistered(
     return;
   }
 
-  std::vector<StatusHelloHandler*> just_handler = {handler};
+  std::vector<hello_world::StatusHelloHandler*> just_handler = {handler};
   for (auto h : handler ? just_handler : handlers_) {
     h->HandleStatusHello(
         last_checked_time, progress, update_status, new_version, new_size);

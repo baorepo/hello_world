@@ -311,7 +311,7 @@ int mHelloWorldClient::ProcessFlags() {
 
   // Boilerplate init commands.
   base::CommandLine::Init(argc_, argv_);
-  brillo::FlagHelper::Init(argc_, argv_, "A/B Hello Engine Client");
+  brillo::FlagHelper::Init(argc_, argv_, "Hello World Client");
 
   // Ensure there are no positional arguments.
   const vector<string> positional_args =

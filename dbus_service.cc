@@ -23,6 +23,9 @@
 #include <hello_world/proto_bindings/hello_world.pb.h>
 
 #include "dbus_bindings/dbus_connection.h"
+#include "proto_bindings/hello_world.pb.h"
+#include "HelloWorld_Status.h"
+
 
 namespace chromeos_hello_world {
 
@@ -39,7 +42,7 @@ DBusHelloWorldService::DBusHelloWorldService(){
 bool DBusHelloWorldService::AttemptHello(ErrorPtr* error,
                                             const string& in_app_version,
                                             const string& in_omaha_url) {
-    return EX_OK;
+    return true;
 }
 
 bool DBusHelloWorldService::AttemptHelloWithFlags(
@@ -47,26 +50,54 @@ bool DBusHelloWorldService::AttemptHelloWithFlags(
         const string& in_app_version,
         const string& in_omaha_url,
         int32_t in_flags_as_int) {
-    return EX_OK;
+  auto flags = static_cast<hello_world::HelloAttemptFlags>(in_flags_as_int);
+  bool interactive = !(flags & hello_world::HelloAttemptFlags::kFlagNonInteractive);
+  bool restrict_downloads = (flags & hello_world::HelloAttemptFlags::kFlagRestrictDownload);
+
+  LOG(INFO) << "Attempt update: app_version=\"" << in_app_version << "\" "
+            << "omaha_url=\"" << in_omaha_url << "\" "
+            << "flags=0x" << std::hex << flags << " "
+            << "interactive=" << (interactive ? "yes " : "no ")
+            << "RestrictDownload=" << (restrict_downloads ? "yes " : "no ");
+        
+  return true;
 }
 
 bool DBusHelloWorldService::AttemptInstall(ErrorPtr* error,
                                              const string& dlc_request) {
-    return EX_OK;
+  // Parse the raw parameters into protobuf.
+  DlcParameters dlc_parameters;
+  if (!dlc_parameters.ParseFromString(dlc_request)) {
+    *error = brillo::Error::Create(
+        FROM_HERE, "update_engine", "INTERNAL", "parameters are invalid.");
+    return false;
+  }
+  // Extract fields from the protobuf.
+  vector<string> dlc_ids;
+  for (const auto& dlc_info : dlc_parameters.dlc_infos()) {
+    if (dlc_info.dlc_id().empty()) {
+      *error = brillo::Error::Create(
+          FROM_HERE, "update_engine", "INTERNAL", "parameters are invalid.");
+      return false;
+    }
+    LOG(INFO) << dlc_info.dlc_id() << "\n";
+    dlc_ids.push_back(dlc_info.dlc_id());
+  }
+    return true;
 }
 
 bool DBusHelloWorldService::AttemptRollback(ErrorPtr* error,
                                               bool in_powerwash) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::CanRollback(ErrorPtr* error,
                                           bool* out_can_rollback) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::ResetStatus(ErrorPtr* error) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::GetStatus(ErrorPtr* error,
@@ -75,85 +106,85 @@ bool DBusHelloWorldService::GetStatus(ErrorPtr* error,
                                         string* out_current_operation,
                                         string* out_new_version,
                                         int64_t* out_new_size) {
-    return EX_OK;
+    return true;
 }
 
 bool DBusHelloWorldService::RebootIfNeeded(ErrorPtr* error) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::SetChannel(ErrorPtr* error,
                                          const string& in_target_channel,
                                          bool in_is_powerwash_allowed) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::GetChannel(ErrorPtr* error,
                                          bool in_get_current_channel,
                                          string* out_channel) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::GetCohortHint(ErrorPtr* error,
                                             string* out_cohort_hint) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::SetCohortHint(ErrorPtr* error,
                                             const string& in_cohort_hint) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::SetP2PHelloPermission(ErrorPtr* error,
                                                      bool in_enabled) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::GetP2PHelloPermission(ErrorPtr* error,
                                                      bool* out_enabled) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::SetHelloOverCellularPermission(ErrorPtr* error,
                                                               bool in_allowed) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::SetHelloOverCellularTarget(
     brillo::ErrorPtr* error,
     const std::string& target_version,
     int64_t target_size) {
-    return EX_OK;
+    return true;
 }
 
 bool DBusHelloWorldService::GetHelloOverCellularPermission(
     ErrorPtr* error, bool* out_allowed) {
-    return EX_OK;
+    return true;
 }
 
 bool DBusHelloWorldService::GetDurationSinceHello(
     ErrorPtr* error, int64_t* out_usec_wallclock) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::GetPrevVersion(ErrorPtr* error,
                                              string* out_prev_version) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::GetRollbackPartition(
     ErrorPtr* error, string* out_rollback_partition_name) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::GetLastAttemptError(
     ErrorPtr* error, int32_t* out_last_attempt_error) {
-  return EX_OK;
+  return true;
 }
 
 bool DBusHelloWorldService::GetEolStatus(ErrorPtr* error,
                                            int32_t* out_eol_status) {
-  return EX_OK;
+  return true;
 }
 
 HelloWorldAdaptor::HelloWorldAdaptor()
